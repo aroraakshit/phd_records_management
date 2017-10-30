@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.3.11
+- http://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Generation Time: Oct 15, 2015 at 12:14 PM
+- Server version: 5.6.24
+- PHP Version: 5.6.8
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="phd" collation="latin1_swedish_ci" charset="latin1">
+            <pma:table name="courses">
+                CREATE TABLE `courses` (
+                  `cid` int(11) NOT NULL AUTO_INCREMENT,
+                  `cname` varchar(100) NOT NULL,
+                  `coordinator_fid` int(11) NOT NULL,
+                  `credits` float NOT NULL,
+                  `semcode` varchar(10) NOT NULL,
+                  `department` varchar(4) NOT NULL,
+                  `class` varchar(10) NOT NULL,
+                  PRIMARY KEY (`cid`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="doc_comm">
+                CREATE TABLE `doc_comm` (
+                  `pno` int(11) NOT NULL AUTO_INCREMENT,
+                  `chairman_fid` int(11) NOT NULL,
+                  `supervisor_1_fid` int(11) NOT NULL,
+                  `supervisor_2_fid` int(11) DEFAULT NULL,
+                  `inside_1_fid` int(11) NOT NULL,
+                  `inside_2_fid` int(11) NOT NULL,
+                  `outside_fid` int(11) NOT NULL,
+                  `other_dept_fid` int(11) NOT NULL,
+                  PRIMARY KEY (`pno`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="faculty">
+                CREATE TABLE `faculty` (
+                  `fid` int(11) NOT NULL AUTO_INCREMENT,
+                  `department` varchar(4) NOT NULL,
+                  `fname` varchar(100) NOT NULL,
+                  `email` varchar(50) NOT NULL,
+                  `designation` varchar(300) NOT NULL,
+                  `r_int` varchar(200) NOT NULL,
+                  `url` varchar(200) NOT NULL,
+                  `dob` date NOT NULL,
+                  `phone` varchar(20) NOT NULL,
+                  `faculty_code` varchar(4) NOT NULL,
+                  PRIMARY KEY (`fid`),
+                  UNIQUE KEY `faculty_code` (`faculty_code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="login">
+                CREATE TABLE `login` (
+                  `sno` int(11) NOT NULL AUTO_INCREMENT,
+                  `role` varchar(100) NOT NULL,
+                  `_id` varchar(100) DEFAULT NULL,
+                  `password` varchar(100) NOT NULL,
+                  `full_name` varchar(200) NOT NULL,
+                  `phone` varchar(20) NOT NULL,
+                  `email` varchar(300) NOT NULL,
+                  PRIMARY KEY (`sno`),
+                  UNIQUE KEY `_id` (`_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="outside_faculty">
+                CREATE TABLE `outside_faculty` (
+                  `ofid` int(11) NOT NULL AUTO_INCREMENT,
+                  `ofname` varchar(100) NOT NULL,
+                  `institute` varchar(200) NOT NULL,
+                  `designation` varchar(100) NOT NULL,
+                  `ofemail` varchar(300) DEFAULT NULL,
+                  `ofphone` int(10) DEFAULT NULL,
+                  PRIMARY KEY (`ofid`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="profile">
+                CREATE TABLE `profile` (
+                  `sno` int(11) NOT NULL AUTO_INCREMENT,
+                  `full_name` varchar(200) NOT NULL,
+                  `id` varchar(200) NOT NULL,
+                  `phone_number` varchar(50) NOT NULL,
+                  PRIMARY KEY (`sno`),
+                  UNIQUE KEY `id` (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="progress">
+                CREATE TABLE `progress` (
+                  `sno` int(11) NOT NULL AUTO_INCREMENT,
+                  `sid` int(11) NOT NULL,
+                  `semcode` varchar(7) NOT NULL,
+                  `percentage` int(11) NOT NULL,
+                  PRIMARY KEY (`sno`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="research_book">
+                CREATE TABLE `research_book` (
+                  `rid` int(11) NOT NULL,
+                  `chapter_title` varchar(500) NOT NULL,
+                  `authors` varchar(500) NOT NULL,
+                  `publisher` varchar(600) NOT NULL,
+                  `page_numbers` varchar(10) NOT NULL,
+                  `book_publish_year` int(5) NOT NULL,
+                  `book_isbn` int(14) NOT NULL,
+                  `sid` int(11) NOT NULL,
+                  `status` varchar(100) NOT NULL,
+                  PRIMARY KEY (`rid`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="research_conference">
+                CREATE TABLE `research_conference` (
+                  `rid` int(11) NOT NULL AUTO_INCREMENT,
+                  `title` varchar(500) NOT NULL,
+                  `people` varchar(500) NOT NULL,
+                  `conference_name` varchar(300) NOT NULL,
+                  `conference_date` date NOT NULL,
+                  `conference_location` varchar(500) NOT NULL,
+                  `status` varchar(100) NOT NULL,
+                  `sid` int(11) NOT NULL,
+                  PRIMARY KEY (`rid`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="research_journal">
+                CREATE TABLE `research_journal` (
+                  `rid` int(11) NOT NULL AUTO_INCREMENT,
+                  `title` varchar(500) NOT NULL,
+                  `authors` varchar(500) NOT NULL,
+                  `journal_name` varchar(300) NOT NULL,
+                  `journal_volume` int(11) NOT NULL,
+                  `journal_no` int(11) NOT NULL,
+                  `publish_date` date NOT NULL,
+                  `journal_pages` varchar(500) NOT NULL,
+                  `status` varchar(500) NOT NULL,
+                  `sid` int(11) NOT NULL,
+                  `journal_impact` double NOT NULL,
+                  PRIMARY KEY (`rid`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="semester">
+                CREATE TABLE `semester` (
+                  `semcode` varchar(11) NOT NULL,
+                  `year` int(4) NOT NULL,
+                  `odd` int(1) NOT NULL,
+                  PRIMARY KEY (`semcode`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="slots">
+                CREATE TABLE `slots` (
+                  `slid` int(11) NOT NULL AUTO_INCREMENT,
+                  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `sl_date` date NOT NULL,
+                  `sl_stime` time NOT NULL,
+                  `sl_etime` time NOT NULL,
+                  PRIMARY KEY (`slid`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="student">
+                CREATE TABLE `student` (
+                  `sid` int(11) NOT NULL AUTO_INCREMENT,
+                  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `regno` int(11) NOT NULL,
+                  `sname` varchar(100) NOT NULL,
+                  `full_part` varchar(5) NOT NULL,
+                  `status` varchar(300) NOT NULL,
+                  `sdob` date NOT NULL,
+                  `semail` varchar(100) NOT NULL,
+                  `sbranch` varchar(4) DEFAULT NULL,
+                  `sdoa` date NOT NULL,
+                  `sdurb` date NOT NULL,
+                  `sthesis` varchar(500) NOT NULL,
+                  `sphone` varchar(200) NOT NULL,
+                  `comm_id` int(11) NOT NULL,
+                  `slid` int(11) NOT NULL,
+                  PRIMARY KEY (`sid`),
+                  UNIQUE KEY `regno` (`regno`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="stu_course">
+                CREATE TABLE `stu_course` (
+                  `SrNo` int(11) NOT NULL AUTO_INCREMENT,
+                  `sno` int(11) NOT NULL,
+                  `cid` int(11) NOT NULL,
+                  PRIMARY KEY (`SrNo`),
+                  UNIQUE KEY `sno` (`sno`,`cid`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'phd'
+    -->
+    <database name="phd">
+        <!-- Table courses -->
+        <table name="courses">
+            <column name="cid">1</column>
+            <column name="cname">Database Management Systems</column>
+            <column name="coordinator_fid">2</column>
+            <column name="credits">4</column>
+            <column name="semcode">1516ODDSEM</column>
+            <column name="department">COE</column>
+            <column name="class">UGCO</column>
+        </table>
+        <table name="courses">
+            <column name="cid">2</column>
+            <column name="cname">Analysis and Design of Algorithms</column>
+            <column name="coordinator_fid">4</column>
+            <column name="credits">4</column>
+            <column name="semcode">1516ODDSEM</column>
+            <column name="department">COE</column>
+            <column name="class">UGCO</column>
+        </table>
+        <table name="courses">
+            <column name="cid">3</column>
+            <column name="cname">Computer Graphics</column>
+            <column name="coordinator_fid">5</column>
+            <column name="credits">4</column>
+            <column name="semcode">1516ODDSEM</column>
+            <column name="department">COE</column>
+            <column name="class">UGCO</column>
+        </table>
+        <table name="courses">
+            <column name="cid">4</column>
+            <column name="cname">Linux Apache MySQL PHP</column>
+            <column name="coordinator_fid">6</column>
+            <column name="credits">4</column>
+            <column name="semcode">1516ODDSEM</column>
+            <column name="department">COE</column>
+            <column name="class">UGCO</column>
+        </table>
+        <!-- Table doc_comm -->
+        <table name="doc_comm">
+            <column name="pno">1</column>
+            <column name="chairman_fid">1</column>
+            <column name="supervisor_1_fid">2</column>
+            <column name="supervisor_2_fid">NULL</column>
+            <column name="inside_1_fid">0</column>
+            <column name="inside_2_fid">0</column>
+            <column name="outside_fid">0</column>
+            <column name="other_dept_fid">0</column>
+        </table>
+        <table name="doc_comm">
+            <column name="pno">2</column>
+            <column name="chairman_fid">2</column>
+            <column name="supervisor_1_fid">3</column>
+            <column name="supervisor_2_fid">5</column>
+            <column name="inside_1_fid">1</column>
+            <column name="inside_2_fid">5</column>
+            <column name="outside_fid">3</column>
+            <column name="other_dept_fid">3</column>
+        </table>
+        <!-- Table faculty -->
+        <table name="faculty">
+            <column name="fid">1</column>
+            <column name="department">COE</column>
+            <column name="fname">Dr. Deepak Garg</column>
+            <column name="email">dgarg@thapar.edu</column>
+            <column name="designation">Associate Professor &amp; Head</column>
+            <column name="r_int">Machine Learning and Data Analytics, Algorithms and Data Structures, Data Mining and Pattern Discovery</column>
+            <column name="url">www.gdeepak.com</column>
+            <column name="dob">0000-00-00</column>
+            <column name="phone">0</column>
+            <column name="faculty_code">DG</column>
+        </table>
+        <table name="faculty">
+            <column name="fid">2</column>
+            <column name="department">COE</column>
+            <column name="fname">Dr. Parteek Bhatia</column>
+            <column name="email">parteek.bhatia@thapar.edu</column>
+            <column name="designation">Assistant Professor</column>
+            <column name="r_int">Natural Language Processing, Information Systems, Computing Methodologies</column>
+            <column name="url">https://sites.google.com/site/parteekbhatia/</column>
+            <column name="dob">0000-00-00</column>
+            <column name="phone">0</column>
+            <column name="faculty_code">PBH</column>
+        </table>
+        <table name="faculty">
+            <column name="fid">3</column>
+            <column name="department">COE</column>
+            <column name="fname">Harkiran Kaur</column>
+            <column name="email">harkiran.kaur@thapar.edu</column>
+            <column name="designation">Lecturer</column>
+            <column name="r_int">Information systems, Web Semantics, Human-centered computing</column>
+            <column name="url">http://thapar.edu/index.php/computer-science-engineering/faculty?pid=151&amp;sid=437:ms-harkiran-kaur</column>
+            <column name="dob">0000-00-00</column>
+            <column name="phone">0</column>
+            <column name="faculty_code">HK</column>
+        </table>
+        <table name="faculty">
+            <column name="fid">4</column>
+            <column name="department">COE</column>
+            <column name="fname">Tarunpreet Bhatia</column>
+            <column name="email">tarunpreet@thapar.edu</column>
+            <column name="designation">Lecturer</column>
+            <column name="r_int">Wireless Networks, Sensor Networks, Network Routing and Security</column>
+            <column name="url">http://thapar.edu/index.php/computer-science-engineering/faculty?pid=151&amp;sid=440:ms-tarunpreet-bhatia</column>
+            <column name="dob">0000-00-00</column>
+            <column name="phone">0</column>
+            <column name="faculty_code">TBH</column>
+        </table>
+        <table name="faculty">
+            <column name="fid">5</column>
+            <column name="department">COE</column>
+            <column name="fname">Dr. Sushma Jain</column>
+            <column name="email">sjain@thapar.edu</column>
+            <column name="designation">Assistant Professor</column>
+            <column name="r_int">Artificial Intelligence, Network architectures, Network protocols and Network algorithms</column>
+            <column name="url">http://thapar.edu/index.php/computer-science-engineering/faculty?pid=151&amp;sid=237:dr-sushma-jain</column>
+            <column name="dob">0000-00-00</column>
+            <column name="phone">0</column>
+            <column name="faculty_code">SJ</column>
+        </table>
+        <table name="faculty">
+            <column name="fid">6</column>
+            <column name="department">COE</column>
+            <column name="fname">Ashish Girdhar</column>
+            <column name="email">ashish.girdhar@thapar.edu</column>
+            <column name="designation">Lecturer</column>
+            <column name="r_int">Data Structure, Soft Computing</column>
+            <column name="url">http://thapar.edu/index.php/computer-science-engineering/faculty?pid=151&amp;sid=504:ashish-girdhar</column>
+            <column name="dob">0000-00-00</column>
+            <column name="phone">0</column>
+            <column name="faculty_code">AG</column>
+        </table>
+        <table name="faculty">
+            <column name="fid">7</column>
+            <column name="department">COE</column>
+            <column name="fname">Dr. Shivani Goel</column>
+            <column name="email">shivani@thapar.edu</column>
+            <column name="designation">Assistant Professor</column>
+            <column name="r_int">Artificial Intelligence, Algorithms, Software Engineering and Software Reuse</column>
+            <column name="url">http://thapar.edu/index.php/computer-science-engineering/faculty?pid=151&amp;sid=233:dr-shivani-goel</column>
+            <column name="dob">0000-00-00</column>
+            <column name="phone">0</column>
+            <column name="faculty_code">SGO</column>
+        </table>
+        <table name="faculty">
+            <column name="fid">9</column>
+            <column name="department">COE</column>
+            <column name="fname">Karamjeet Kaur Cheema</column>
+            <column name="email">karamjeet@thapar.edu</column>
+            <column name="designation">Assistant Professor</column>
+            <column name="r_int">Machine LEarning</column>
+            <column name="url">http://www.me.com</column>
+            <column name="dob">2013-10-28</column>
+            <column name="phone">7696051994</column>
+            <column name="faculty_code">KJK</column>
+        </table>
+        <!-- Table login -->
+        <table name="login">
+            <column name="sno">2</column>
+            <column name="role">admin</column>
+            <column name="_id">akshit</column>
+            <column name="password">$1$sa5.FC/.$5mbA2ZielWm5uOkkhy7ZA0</column>
+            <column name="full_name">Akshit Arora</column>
+            <column name="phone">+917696061995</column>
+            <column name="email"></column>
+        </table>
+        <table name="login">
+            <column name="sno">3</column>
+            <column name="role">student</column>
+            <column name="_id">1000000002</column>
+            <column name="password">$1$Nb0.Sy/.$OvuFgBs2Q03pJ6eduasB70</column>
+            <column name="full_name">Akshit Arora</column>
+            <column name="phone"></column>
+            <column name="email"></column>
+        </table>
+        <table name="login">
+            <column name="sno">4</column>
+            <column name="role">faculty</column>
+            <column name="_id">KJK</column>
+            <column name="password">$1$mm..1E3.$eiSyEJZAUZyYFI.h9ienQ/</column>
+            <column name="full_name">Karamjeet Kaur Cheema</column>
+            <column name="phone">7696051994</column>
+            <column name="email">karamjeet@thapar.edu</column>
+        </table>
+        <table name="login">
+            <column name="sno">7</column>
+            <column name="role">admin</column>
+            <column name="_id">ankit</column>
+            <column name="password">$1$K9/.LZ4.$hSFHp/G4dCKyOBa9Lm.zz.</column>
+            <column name="full_name">ankit goyal</column>
+            <column name="phone">8769604995</column>
+            <column name="email">ankit@thapar.edu</column>
+        </table>
+        <table name="login">
+            <column name="sno">8</column>
+            <column name="role">admin</column>
+            <column name="_id">abhinav</column>
+            <column name="password">$1$ka3.d...$E5grU9yN5OdZ9kIX/y2QQ1</column>
+            <column name="full_name">Abhinav Garg</column>
+            <column name="phone">9988121169</column>
+            <column name="email">abhinav_garg01@gmail.com</column>
+        </table>
+        <!-- Table outside_faculty -->
+        <table name="outside_faculty">
+            <column name="ofid">3</column>
+            <column name="ofname">Dr. Sanjay Sharma</column>
+            <column name="institute"></column>
+            <column name="designation"></column>
+            <column name="ofemail">NULL</column>
+            <column name="ofphone">NULL</column>
+        </table>
+        <table name="outside_faculty">
+            <column name="ofid">4</column>
+            <column name="ofname">Dr. Kulbir Singh</column>
+            <column name="institute"></column>
+            <column name="designation"></column>
+            <column name="ofemail">NULL</column>
+            <column name="ofphone">NULL</column>
+        </table>
+        <!-- Table profile -->
+        <!-- Table progress -->
+        <!-- Table research_book -->
+        <!-- Table research_conference -->
+        <!-- Table research_journal -->
+        <!-- Table semester -->
+        <table name="semester">
+            <column name="semcode">1516ODDSEM</column>
+            <column name="year">2015</column>
+            <column name="odd">1</column>
+        </table>
+        <!-- Table slots -->
+        <table name="slots">
+            <column name="slid">1</column>
+            <column name="timestamp">2015-10-05 22:24:53</column>
+            <column name="sl_date">2015-10-21</column>
+            <column name="sl_stime">12:00:00</column>
+            <column name="sl_etime">13:00:00</column>
+        </table>
+        <!-- Table student -->
+        <table name="student">
+            <column name="sid">1</column>
+            <column name="timestamp">2015-10-05 22:29:26</column>
+            <column name="regno">2147483647</column>
+            <column name="sname">Pradeep Arora</column>
+            <column name="full_part"></column>
+            <column name="status"></column>
+            <column name="sdob">1989-08-05</column>
+            <column name="semail">Engg.pardeeparora@gmail.com</column>
+            <column name="sbranch">COE</column>
+            <column name="sdoa">2010-08-01</column>
+            <column name="sdurb">2012-04-27</column>
+            <column name="sthesis">Mobile Agent Based Regression Test Case Generation</column>
+            <column name="sphone">988838670</column>
+            <column name="comm_id">1</column>
+            <column name="slid">1</column>
+        </table>
+        <table name="student">
+            <column name="sid">2</column>
+            <column name="timestamp">2015-10-05 22:32:30</column>
+            <column name="regno">950903030</column>
+            <column name="sname">Kirti Wanjale</column>
+            <column name="full_part"></column>
+            <column name="status"></column>
+            <column name="sdob">1989-07-21</column>
+            <column name="semail">kwanjale@yahoo.com</column>
+            <column name="sbranch">COE</column>
+            <column name="sdoa">2010-06-05</column>
+            <column name="sdurb">2010-10-20</column>
+            <column name="sthesis">Design of framework for Intelligent Particle Filter Based CBIR System</column>
+            <column name="sphone">955293391</column>
+            <column name="comm_id">1</column>
+            <column name="slid">1</column>
+        </table>
+        <table name="student">
+            <column name="sid">4</column>
+            <column name="timestamp">2015-10-14 13:31:04</column>
+            <column name="regno">1000000002</column>
+            <column name="sname">Akshit Arora</column>
+            <column name="full_part">full</column>
+            <column name="status">Coursework</column>
+            <column name="sdob">2013-10-29</column>
+            <column name="semail">akshitarora@gmail.com</column>
+            <column name="sbranch">ECE</column>
+            <column name="sdoa">2013-11-30</column>
+            <column name="sdurb">2013-10-29</column>
+            <column name="sthesis">Mobile Netowrk</column>
+            <column name="sphone">1000000005</column>
+            <column name="comm_id">0</column>
+            <column name="slid">1</column>
+        </table>
+        <!-- Table stu_course -->
+        <table name="stu_course">
+            <column name="SrNo">1</column>
+            <column name="sno">1</column>
+            <column name="cid">2</column>
+        </table>
+    </database>
+</pma_xml_export>
